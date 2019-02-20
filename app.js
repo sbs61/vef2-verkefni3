@@ -8,6 +8,8 @@ const register = require('./register');
 const admin = require('./admin');
 const applications = require('./applications');
 
+const sessionSecret = 'enginnmavita';
+
 /* todo sækja stillingar úr env */
 
 if (!sessionSecret) {

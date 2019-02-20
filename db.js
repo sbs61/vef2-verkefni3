@@ -20,13 +20,36 @@ async function query(q, values = []) {
 
 async function insert(data) {
   const q = `
-INSERT INTO applications
-(name, email, phone, text, job)
-VALUES
-($1, $2, $3, $4, $5)`;
+  INSERT INTO applications
+  (name, email, phone, text, job)
+  VALUES
+  ($1, $2, $3, $4, $5)`;
   const values = [data.name, data.email, data.phone, data.text, data.job];
 
   return query(q, values);
+}
+
+async function insertUser(data) {
+  const q = `
+  INSERT INTO users
+  (username, password, email, name)
+  VALUES
+  ($1, $2, $3, $4)`;
+  const values = [data.username, data.password1, data.email, data.name];
+
+  return query(q, values);
+}
+
+async function usernameAvailable(username) {
+  const q = 'SELECT * FROM users WHERE username = $1';
+
+  const result = await query(q, [username]);
+
+  if (result.rowCount !== 0) {
+    return false;
+  }
+
+  return true;
 }
 
 async function select() {
@@ -56,4 +79,6 @@ module.exports = {
   select,
   update,
   deleteRow, // delete er frátekið orð
+  insertUser,
+  usernameAvailable,
 };
