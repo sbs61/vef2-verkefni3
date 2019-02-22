@@ -143,3 +143,20 @@ button:hover {
     flex: 1;
   }
 }
+
+.nav {
+  display: flex;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.nav > a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.nav a.active {
+  text-decoration: underline;
+  font-weight: bold;
+}

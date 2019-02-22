@@ -60,17 +60,15 @@ const validations = [
   // .custom((value, { req }) => value === findByUsername(req.body.username))
 
   check('username')
-    .custom(value => usernameAvailable(value).then((result) => {
-      return result;
-    }))
+    .custom(value => usernameAvailable(value).then(result => result))
     .withMessage('Notendanafn er nú þegar til'),
 
-  check('password1')
+  check('password')
     .isLength({ min: 8 })
     .withMessage('Lykilorð verður að vera a.m.k. 8 stafir'),
 
   check('password2')
-    .custom((value, { req }) => value === req.body.password1)
+    .custom((value, { req }) => value === req.body.password)
     .withMessage('Lykilorð verða að vera eins'),
 
 ];
@@ -86,8 +84,8 @@ const sanitazions = [
   sanitize('username').trim().escape(),
   sanitizeXss('username'),
 
-  sanitize('password1').trim().escape(),
-  sanitizeXss('password1'),
+  sanitize('password').trim().escape(),
+  sanitizeXss('password'),
 
   sanitize('password2').trim().escape(),
   sanitizeXss('password2'),
@@ -108,7 +106,7 @@ async function register(req, res) {
     name: '',
     email: '',
     username: '',
-    password1: '',
+    password: '',
     password2: '',
     errors: [],
   };
@@ -130,7 +128,7 @@ function showErrors(req, res, next) {
       name = '',
       email = '',
       username = '',
-      password1 = '',
+      password = '',
       password2 = '',
     } = {},
   } = req;
@@ -139,7 +137,7 @@ function showErrors(req, res, next) {
     name,
     email,
     username,
-    password1,
+    password,
     password2,
   };
 
@@ -169,7 +167,7 @@ async function formPost(req, res) {
       name = '',
       email = '',
       username = '',
-      password1 = '',
+      password = '',
       password2 = '',
     } = {},
   } = req;
@@ -178,7 +176,7 @@ async function formPost(req, res) {
     name,
     email,
     username,
-    password1,
+    password,
     password2,
   };
 

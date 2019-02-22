@@ -47,7 +47,7 @@ INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
 
 INSERT INTO users(username, password, name, email, admin) VALUES (
     'admin',
-    'asdfasdf',
+    '$2a$10$Xm7cS98MluuOfa3mnUwwk.57qX9xV/M25KgrWficEJL0WzQfFU8Om',
     'Admin',
     'admin@example.org',
     true
@@ -55,7 +55,7 @@ INSERT INTO users(username, password, name, email, admin) VALUES (
 
 INSERT INTO users(username, password, name, email, admin) VALUES (
     'nn',
-    '12341234',
+    '$2a$10$jgkvHBc6ISICNj1y/PoAtuUYur15qQ5r/LM6DqRtc6GQnSqwF1UD2',
     'Nafnlaus',
     'nn@example.org',
     false

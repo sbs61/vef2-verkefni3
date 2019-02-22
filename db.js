@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const bcrypt = require('bcrypt');
 
 const connectionString = process.env.DATABASE_URL;
 
@@ -35,7 +36,11 @@ async function insertUser(data) {
   (username, password, email, name)
   VALUES
   ($1, $2, $3, $4)`;
-  const values = [data.username, data.password1, data.email, data.name];
+  const values = [
+    data.username,
+    bcrypt.hashSync(data.password, bcrypt.genSaltSync(10)),
+    data.email,
+    data.name];
 
   return query(q, values);
 }
@@ -58,11 +63,17 @@ async function select() {
   return result.rows;
 }
 
+async function selectUsers() {
+  const result = await query('SELECT * FROM users ORDER BY id');
+
+  return result.rows;
+}
+
 async function update(id) {
   const q = `
-UPDATE applications
-SET processed = true, updated = current_timestamp
-WHERE id = $1`;
+  UPDATE applications
+  SET processed = true, updated = current_timestamp
+  WHERE id = $1`;
 
   return query(q, id);
 }
@@ -81,4 +92,5 @@ module.exports = {
   deleteRow, // delete er frátekið orð
   insertUser,
   usernameAvailable,
+  selectUsers,
 };
