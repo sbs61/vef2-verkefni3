@@ -1,0 +1,38 @@
+<%- include('header') -%>
+
+<h1>Notendur</h1>
+
+<div class="users">
+
+  <form method="post" action="/admin/process">
+  <table>
+      <tr>
+        <% if(isAdmin) { %>
+            <th>Stjórnandi?</th>
+        <% } %>
+        <th>Notendanafn</th>
+        <th>Nafn</th> 
+        <th>Netfang</th>
+      </tr>
+  <% list.forEach((user) => { %>
+    <div class="user">
+        <tr>
+          <% if(isAdmin) { %>
+            <td><input class="check" type="checkbox" name="update[]" value="<%= user.id %>" <% if(user.admin) { %> checked <% } %> ></td>
+          <% } %>
+          <td><%= user.username%></td>
+          <td><%= user.name%></td> 
+          <td><%= user.email%></td>
+        </tr>
+    </div>
+  <% }); %>
+</table>
+<% if(isAdmin) { %>
+        <input type="hidden" name="id" value="<%= user.id %>">
+        <button class="update__button">Uppfæra stjórnendur</button>
+<% } %>
+</form>
+</div>
+
+
+<%- include('footer') -%>

@@ -125,8 +125,7 @@ button:hover {
   align-items: center;
 }
 
-
-@media (min-width: 600px) {
+@media (min-width: 700px) {
   .field {
     flex-direction: row;
   }
@@ -142,21 +141,81 @@ button:hover {
   .field input {
     flex: 1;
   }
+
 }
 
 .nav {
   display: flex;
-  margin-left: 30px;
-  margin-top: 20px;
 }
 
 .nav > a {
-  margin-right: 20px;
+  margin-right: 2em;
   text-decoration: none;
   color: black;
 }
 
 .nav a.active {
-  text-decoration: underline;
   font-weight: bold;
+  text-decoration: underline;
 }
+
+.header__login {
+  display: flex;
+  flex-direction: row;
+}
+
+header {
+  margin: 2rem;
+}
+.logout {
+  margin-left: auto;
+}
+
+table {
+  border-spacing: 0px;
+  display: block;
+  overflow-x: auto;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(27,31,35,.05);;
+}
+
+th {
+  text-align: left;
+  padding: 1em;
+}
+
+td {
+  padding: 1em;
+}
+
+.update__button {
+  margin-top: 1.5em;
+}
+
+@media (max-width: 700px) {
+  body {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .header__login {
+    display: flex;
+    flex-direction: column;
+  }
+  .logout {
+    text-align: left;
+    margin-top: 1em;
+    margin-left: 0;
+  }
+
+  .nav a { 
+    width: 33.3%;
+  }
+
+}
+
+
+
+

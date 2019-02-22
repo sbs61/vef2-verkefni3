@@ -75,13 +75,30 @@ async function update(id) {
   SET processed = true, updated = current_timestamp
   WHERE id = $1`;
 
-  return query(q, id);
+  return query(q, [id]);
+}
+
+async function resetAdmins() {
+  const q = `
+  UPDATE users
+  SET admin = false`;
+
+  return query(q);
+}
+
+async function updateUser(id) {
+  const q = `
+  UPDATE users
+  SET admin = true
+  WHERE id = $1`;
+
+  return query(q, [id]);
 }
 
 async function deleteRow(id) {
   const q = 'DELETE FROM applications WHERE id = $1';
 
-  return query(q, id);
+  return query(q, [id]);
 }
 
 module.exports = {
@@ -93,4 +110,6 @@ module.exports = {
   insertUser,
   usernameAvailable,
   selectUsers,
+  updateUser,
+  resetAdmins,
 };

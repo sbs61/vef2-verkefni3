@@ -102,6 +102,8 @@ function form(req, res) {
     text: '',
     job: '',
     errors: [],
+    loggedIn: req.isAuthenticated(),
+    page: 'apply',
   };
   res.render('form', data);
 }
@@ -136,10 +138,12 @@ function showErrors(req, res, next) {
 
   const validation = validationResult(req);
 
+  data.loggedIn = req.isAuthenticated();
+  data.title = 'Atvinnuumsókn - vandræði';
+  data.page = 'apply';
   if (!validation.isEmpty()) {
     const errors = validation.array();
     data.errors = errors;
-    data.title = 'Avinnuumsókn – vandræði';
 
     return res.render('form', data);
   }
@@ -185,7 +189,7 @@ async function formPost(req, res) {
  * @param {object} res Response hlutur
  */
 function thanks(req, res) {
-  return res.render('thanks', { title: 'Takk fyrir umsóknina' });
+  return res.render('thanks', { title: 'Takk fyrir umsóknina', loggedIn: req.isAuthenticated(), page: 'apply' });
 }
 
 router.get('/', form);

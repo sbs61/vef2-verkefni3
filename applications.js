@@ -24,9 +24,21 @@ function catchErrors(fn) {
 async function applications(req, res) {
   const list = await select();
 
+  const loggedIn = req.isAuthenticated();
+
+  if (!loggedIn) { return res.redirect('/login'); }
+
+  let isAdmin = false;
+  if (loggedIn) {
+    isAdmin = req.user.admin;
+  }
+
   const data = {
     title: 'Umsóknir',
     list,
+    loggedIn,
+    isAdmin,
+    page: 'applications',
   };
 
   return res.render('applications', data);

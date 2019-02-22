@@ -10,10 +10,24 @@
   </head>
   <body>
     <header>
-      <div class="nav" id="nav">
-          <a href="../" id="index">Atvinnuumsókn</a>
-          <a href="/login" id="login" >Innskráning</a>
-          <a href="/register" id="register">Nýskráning</a>
-      </div>
+        <% if(!loggedIn) { %>
+          <div class="nav" id="nav">
+            <a href="../" id="index" <% if(page === 'apply') { %> class="active" <% } %> >Atvinnuumsókn</a>
+            <a href="/login" id="login" <% if(page === 'login') { %> class="active" <% } %> >Innskráning</a>
+            <a href="/register" id="register" <% if(page === 'register') { %> class="active" <% } %> >Nýskráning</a>
+          </div>
+      <% } else { %>
+        <div class="header__login">
+        <div class="nav" id="nav">
+            <a href="../" id="index" <% if(page === 'apply') { %> class="active" <% } %> >Atvinnuumsókn</a>
+            <a href="/applications" id="applications" <% if(page === 'applications') { %> class="active" <% } %> >Umsóknir</a>
+            <a href="/admin" id="register" <% if(page === 'admin') { %> class="active" <% } %> >Notendur</a>
+          </div>
+          <div class="logout">
+            <p><%= user.name %></p>
+            <a href="/logout">Útskrá</a>
+          </div>
+        </div>
+      <% } %>
     </header>
     <main>

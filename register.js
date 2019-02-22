@@ -109,6 +109,9 @@ async function register(req, res) {
     password: '',
     password2: '',
     errors: [],
+    loggedIn: req.isAuthenticated(),
+    user: req.user,
+    page: 'register',
   };
   res.render('register', data);
 }
@@ -142,11 +145,12 @@ function showErrors(req, res, next) {
   };
 
   const validation = validationResult(req);
-
+  data.loggedIn = req.isAuthenticated();
+  data.title = 'Nýskráning - vandræði';
+  data.page = 'register';
   if (!validation.isEmpty()) {
     const errors = validation.array();
     data.errors = errors;
-    data.title = 'Nýskráning - vandræði';
 
     return res.render('register', data);
   }
@@ -182,22 +186,10 @@ async function formPost(req, res) {
 
   await insertUser(data);
 
-  return res.redirect('/thanks');
+  return res.redirect('/login');
 }
-
-/**
- * Route handler fyrir þakkarsíðu.
- *
- * @param {object} req Request hlutur
- * @param {object} res Response hlutur
- */
-function thanks(req, res) {
-  return res.render('thanks', { title: 'Takk fyrir umsóknina' });
-}
-
 
 router.get('/', register);
-router.get('/thanks', thanks);
 
 router.post(
   '/',

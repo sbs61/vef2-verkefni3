@@ -1,10 +1,10 @@
-INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
+INSERT INTO applications(name, email, phone, text, job, processed) VALUES (
     'Jón Jónsson', 'jon@example.org', '1231231', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
     Ut bibendum eleifend odio, eu laoreet sapien sollicitudin quis.',
     'forritari', false);
 
-INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
+INSERT INTO applications(name, email, phone, text, job, processed) VALUES (
     'Guðmundur Guðmundsson', 'gummi@example.org', '1233211',
     'Nam a sapien tellus. Class aptent taciti sociosqu ad litora
     torquent per conubia nostra, per inceptos himenaeos. 
@@ -16,14 +16,14 @@ INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
     Donec vel cursus purus.',
     'forritari', true);
     
-INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
+INSERT INTO applications(name, email, phone, text, job, processed) VALUES (
     'Anna Önnudóttir', 'anna@example.org', '3333333',
     'Sed in sem sagittis, fringilla justo eget, vulputate nunc. 
     Cras pharetra faucibus blandit. Sed non porta ligula, 
     non efficitur dolor',
     'forritari', false);
 
-INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
+INSERT INTO applications(name, email, phone, text, job, processed) VALUES (
     'Guðmunda Guðmundsdóttir', 'gudmunda@example.org', '1111111',
     'Aenean a nibh a enim cursus bibendum. Donec dictum velit in odio
     feugiat imperdiet. Sed blandit, justo vitae lacinia efficitur, 
@@ -34,7 +34,7 @@ INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
     Sed congue volutpat fringilla.',
     'hönnuður', false);
 
-INSERT INTO applications(name, email, simi, texti, starf, unnin) VALUES (
+INSERT INTO applications(name, email, phone, text, job, processed) VALUES (
     'John Johnson', 'john@example.org', '1000000',
     'Etiam accumsan neque nec mauris fringilla, id dignissim tortor
     maximus. Proin sit amet sodales felis. Vivamus ut est magna. 

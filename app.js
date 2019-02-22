@@ -8,12 +8,12 @@ const { Strategy } = require('passport-local');
 
 const apply = require('./apply');
 const register = require('./register');
-const login = require('./login');
+// const login = require('./login');
 const admin = require('./admin');
 const applications = require('./applications');
 const users = require('./users');
 
-const sessionSecret = 'enginnmavita';
+const sessionSecret = process.env.SESSION_SECRET;
 
 /* todo sækja stillingar úr env */
 
@@ -28,7 +28,6 @@ app.use(session({
   secret: sessionSecret,
   resave: false,
   saveUnitialized: false,
-  maxAge: 20 * 1000,
 }));
 
 /* todo stilla session og passport */
@@ -80,6 +79,17 @@ passport.deserializeUser(async (id, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Gott að skilgreina eitthvað svona til að gera user hlut aðgengilegan í
+// viewum ef við erum að nota þannig
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    // getum núna notað user í viewum
+    res.locals.user = req.user;
+  }
+
+  next();
+});
+
 /* todo stilla session og passport */
 
 
@@ -105,12 +115,46 @@ app.locals.isInvalid = isInvalid;
 
 /* todo setja upp login og logout virkni */
 
+app.get('/login', (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/');
+  }
 
+  let message = '';
+
+  // Athugum hvort einhver skilaboð séu til í session, ef svo er birtum þau
+  // og hreinsum skilaboð
+  if (req.session.messages && req.session.messages.length > 0) {
+    message = req.session.messages.join(', ');
+    req.session.messages = [];
+  }
+
+  // Ef við breytum name á öðrum hvorum reitnum að neðan mun ekkert virka
+  return res.render('login', {
+    title: 'Innskráning', loggedIn: req.isAuthenticated(), message, page: 'login',
+  });
+});
+
+app.post(
+  '/login',
+  passport.authenticate('local', {
+    failureMessage: 'Notendanafn eða lykilorð rangt',
+    failureRedirect: '/login',
+  }),
+  (req, res) => {
+    res.redirect('/admin');
+  },
+);
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 /* todo setja upp login og logout virkni */
 
 app.use('/', apply);
 app.use('/register', register);
-app.use('/login', login);
+// app.use('/login', login);
 app.use('/applications', applications);
 app.use('/admin', admin);
 
