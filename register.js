@@ -57,8 +57,6 @@ const validations = [
     .isLength({ min: 1 })
     .withMessage('Notendanafn má ekki vera tómt'),
 
-  // .custom((value, { req }) => value === findByUsername(req.body.username))
-
   check('username')
     .custom(value => usernameAvailable(value).then(result => result))
     .withMessage('Notendanafn er nú þegar til'),
@@ -145,7 +143,7 @@ function showErrors(req, res, next) {
   };
 
   const validation = validationResult(req);
-  data.loggedIn = req.isAuthenticated();
+  data.loggedIn = req.isAuthenticated(); // er notandi skráður inn?
   data.title = 'Nýskráning - vandræði';
   data.page = 'register';
   if (!validation.isEmpty()) {
@@ -165,7 +163,7 @@ function showErrors(req, res, next) {
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
  */
-async function formPost(req, res) {
+async function registerPost(req, res) {
   const {
     body: {
       name = '',
@@ -186,6 +184,7 @@ async function formPost(req, res) {
 
   await insertUser(data);
 
+  // nýskráning tókst, senda á login síðu
   return res.redirect('/login');
 }
 
@@ -200,7 +199,7 @@ router.post(
   // Öll gögn í lagi, hreinsa þau
   sanitazions,
   // Senda gögn í gagnagrunn
-  catchErrors(formPost),
+  catchErrors(registerPost),
 );
 
 module.exports = router;

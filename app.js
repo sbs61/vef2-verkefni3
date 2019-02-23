@@ -135,6 +135,7 @@ app.get('/login', (req, res) => {
   });
 });
 
+// post aðferð fyrir login síðuna
 app.post(
   '/login',
   passport.authenticate('local', {
@@ -146,15 +147,16 @@ app.post(
   },
 );
 
+// logout virkni
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
+
 /* todo setja upp login og logout virkni */
 
 app.use('/', apply);
 app.use('/register', register);
-// app.use('/login', login);
 app.use('/applications', applications);
 app.use('/admin', admin);
 

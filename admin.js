@@ -15,22 +15,22 @@ function catchErrors(fn) {
 }
 
 /**
- * Ósamstilltur route handler fyrir umsóknarlista.
+ * Ósamstilltur route handler fyrir admin síðuna.
  *
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
  * @returns {string} Lista af umsóknum
  */
-async function applications(req, res) {
-  const list = await selectUsers();
+async function admin(req, res) {
+  const list = await selectUsers(); // sæki alla notendur
 
-  const loggedIn = req.isAuthenticated();
+  const loggedIn = req.isAuthenticated(); // segir hvort að einhver sé skráður inn eða ekki
 
-  if (!loggedIn) { return res.redirect('/login'); }
+  if (!loggedIn) { return res.redirect('/login'); } // ef ekki skráður inn, redirect á login síðu
 
   let isAdmin = false;
   if (loggedIn) {
-    isAdmin = req.user.admin;
+    isAdmin = req.user.admin; // athuga hvort notandi sé admin eða ekki
   }
 
   const data = {
@@ -53,20 +53,19 @@ async function applications(req, res) {
  * @returns Redirect á `/applications`
  */
 async function processUsers(req, res) {
+  // sæki stöðu checkboxa, fylki af id-um hjá þeim sem eiga að fá admin rétt
   const { update } = req.body;
 
-  await resetAdmins();
+  await resetAdmins(); // tek burt admin rétt hjá öllum notendum
 
   await update.forEach((id) => {
-    updateUser(id);
+    updateUser(id); // bæti við admin rétt samkvæmt stöðu checkboxa í update fylkinu fyrir hvert id
   });
-
-  // await updateUser(update);
 
   return res.redirect('/admin');
 }
 
-router.get('/', catchErrors(applications));
+router.get('/', catchErrors(admin));
 router.post('/process', catchErrors(processUsers));
 
 module.exports = router;
