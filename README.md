@@ -1,3 +1,11 @@
+## Keyrsla
+
+npm install   
+
+npm test  
+
+npm start   
+
 # Verkefni 3
 
 Verkefni 3 byggir á [verkefni 2](https://github.com/vefforritun/vef2-2019-v2) og bætir við notendaumsjón með nýskráningu og meðhöndlun á notendum.
