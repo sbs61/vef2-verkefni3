@@ -13,7 +13,7 @@ const admin = require('./admin');
 const applications = require('./applications');
 const users = require('./users');
 
-const sessionSecret = process.env.SESSION_SECRET;
+const sessionSecret = process.env.SESSION_SECRET || 'leyndarmál';
 
 /* todo sækja stillingar úr env */
 
